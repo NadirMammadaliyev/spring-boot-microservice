@@ -21,6 +21,7 @@ public class InventoryService {
        /* log.info("isInStock.start: Wait started");
         Thread.sleep(10000);                                 //Testing for circuit breaker
         log.info("isInStock.start: Wait ended");*/
+        log.info("isInStock.start skuCode: {}" , skuCode);
         return inventoryRepository.findBySkuCodeIn(skuCode).stream()
                 .map(inventory ->
                         InventoryResponse.builder()
