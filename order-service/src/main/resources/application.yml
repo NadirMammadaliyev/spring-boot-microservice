@@ -24,6 +24,18 @@ spring:
   sleuth:
     sampler:
       probability: 1.0
+  kafka:
+    bootstrap-servers: 'localhost:9092'
+    template:
+      default-topic: 'notificationTopic'
+    producer:
+      key-serializer: 'org.apache.kafka.common.serialization.StringSerializer'
+      value-serializer: 'org.springframework.kafka.support.serializer.JsonSerializer'
+      properties:
+        spring:
+          json:
+            type:
+              mapping: 'event:com.nadeer.orderservice.event.OrderPlacedEvent'
 eureka:
   client:
     service-url:
@@ -54,7 +66,7 @@ resilience4j:
         wait-duration-in-open-state: '5s'
         permitted-number-of-calls-in-half-open-state: 3
         automatic-transition-from-open-to-half-open-enabled: true
-  timelimiter:   #Resilience4j Timeout Properties
+  timelimiter: #Resilience4j Timeout Properties
     instances:
       inventory:
         timeout-duration: 3s
